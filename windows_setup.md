@@ -1,10 +1,10 @@
-# Setup Kube6ml on Windows
+# **Setup Kube6ml on Windows**
 
 In order to run the scripts of this project on windows, it is necessary to be able to run [Kubernetes](https://kubernetes.io) locally, to do so there are some options available online, but in this document will be explained how to setup Kubernetes on your local computer using [Microk8s](https://microk8s.io), which is basically a tool that allows us to deploy a lite version of Kubernetes.
 
 <p align="center">
   <img src="./assets/imgs/microk8s-sticker.webp" width=50%/>
-  <img src="./assets/imgs/Microk8s-lightweight.png" width=40%/>
+  <img src="https://github.com/Elkinmt19/kube6ml/blob/main/assets/imgs/MicroK8s-lightweight.png" width=40%/>
 </p>
 
 Microk8s can be setup on windows in some ways, in this document will be used the Windows Subsystem Linux (wsl 2) using an Ubuntu distribution, this allows us to install and configure microk8s easily. 
