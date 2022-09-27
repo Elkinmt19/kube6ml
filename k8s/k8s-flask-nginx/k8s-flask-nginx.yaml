@@ -32,5 +32,13 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "250m"
+        volumeMounts:
+        - mountPath: /app
+          name: k8s-flask-nginx-volume
         ports:
-        - containerPort: 3000
+        - containerPort: 9696
+      volumes:
+      - name: k8s-flask-nginx-volume
+        hostPath:
+          path: $PWD
+          type: Directory
