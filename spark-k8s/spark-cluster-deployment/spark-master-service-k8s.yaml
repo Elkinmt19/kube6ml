@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master-service
+spec:
+  selector:
+    app: spark-master-service
+  ports:
+  - name: port8080
+    port: 8080
+    targetPort: 8080
+  - name: port7077
+    port: 7077
+    targetPort: 7077
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spark-master-service
+  template:
+    metadata:
+      labels:
+        app: spark-master-service
+    spec:
+      containers:
+      - name: spark-master-service
+        image: andreper/spark-master:3.0.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        volumeMounts:
+        - mountPath: /opt/workspace
+          name: spark-master-volume
+        ports:
+        - name: port8080
+          containerPort: 8080
+        - name: port7077
+          containerPort: 7077
+      volumes:
+      - name: spark-master-volume
+        hostPath:
+          path: /mnt/c/Users/elkin/Documents/Programming/kube6ml/spark-k8s/spark-cluster-deployment/shared-workspace
+          type: Directory

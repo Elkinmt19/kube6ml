@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-worker-2-service
+spec:
+  selector:
+    app: spark-worker-2-service
+  ports:
+  - name: port8082
+    port: 8082
+    targetPort: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-worker-2-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spark-worker-2-service
+  template:
+    metadata:
+      labels:
+        app: spark-worker-2-service
+    spec:
+      containers:
+      - name: spark-worker-2-service
+        image: andreper/spark-worker:3.0.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        volumeMounts:
+        - mountPath: /opt/workspace
+          name: spark-worker-2-volume
+        ports:
+        - name: port8081
+          containerPort: 8081
+      volumes:
+      - name: spark-worker-2-volume
+        hostPath:
+          path: /mnt/c/Users/elkin/Documents/Programming/kube6ml/spark-k8s/spark-cluster-deployment/shared-workspace
+          type: Directory
