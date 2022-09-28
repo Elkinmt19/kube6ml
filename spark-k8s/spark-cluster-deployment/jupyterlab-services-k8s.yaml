@@ -7,9 +7,11 @@ spec:
   selector:
     app: jupyterlab-service
   ports:
-  - port: 8888
+  - name: port8888
+    port: 8888
     targetPort: 8888
-  - port: 4040
+  - name: port4040
+    port: 4040
     targetPort: 4040
 ---
 apiVersion: apps/v1
@@ -38,10 +40,12 @@ spec:
         - mountPath: /opt/workspace
           name: jupyterlab-service-volume
         ports:
-        - containerPort: 8888
-        - containerPort: 4040
+        - name: port8888
+          containerPort: 8888
+        - name: port4040
+          containerPort: 4040
       volumes:
       - name: jupyterlab-service-volume
         hostPath:
-          path: shared-workspace
+          path: /mnt/c/Users/elkin/Documents/Programming/kube6ml/spark-k8s/spark-cluster-deployment/shared-workspace
           type: Directory
