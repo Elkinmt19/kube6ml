@@ -1,20 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: spark-worker-service
+  name: spark-worker
 spec:
   replicas: 2
   selector:
     matchLabels:
-      component: spark-worker-service
+      component: spark-worker
   template:
     metadata:
       labels:
-        component: spark-worker-service
+        component: spark-worker
     spec:
       containers:
-        - name: spark-worker-service
-          image: elkinmle19/spark-hadoop:3.2.0
+        - name: spark-worker
+          image: mjhea0/spark-hadoop:3.2.0
+          imagePullPolicy: Always
           command: ["/spark-worker"]
           ports:
             - containerPort: 8081
